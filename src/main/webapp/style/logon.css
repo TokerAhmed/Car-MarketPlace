@@ -1,0 +1,12 @@
+.logon {
+    text-align:center;
+
+}
+
+.logon input{
+    margin: 20px ;
+}
+
+.logon button {
+    margin-top: 20px;
+}

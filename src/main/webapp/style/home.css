@@ -1,0 +1,25 @@
+
+
+/* Styles for headings within Home component */
+.home-content h1 {
+    font-size: 2.5rem;
+    margin-top: 1;
+    color: black; /* Adjust color as needed */
+}
+
+/* Styles for paragraphs within Home component */
+.home-content p {
+    font-size: 1rem;
+    line-height: 1.6;
+    margin: 1rem 0;
+    color: black; /* Adjust color as needed */
+}
+
+/* Styles for images within Home component */
+.home-content img {
+    width: 100%;
+    max-width: 600px;
+    height: auto;
+    border-radius: 0.5rem;
+    margin: 1rem 0;
+}

@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- Title for the website -->
+    <title>Car Marketplace</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Include the CSS files -->
+    <link href="style/home.css" rel="stylesheet" type="text/css" />
+    <link href="style/blog.css" rel="stylesheet" type="text/css" />
+    <link href="style/styles.css" rel="stylesheet" type="text/css" />
+
+    <link href="style/dropDown.css" rel="stylesheet" type="text/css" />
+    <link href="style/myDropDown.css" rel="stylesheet" type="text/css" />
+    <link href="style/cars.css" rel="stylesheet" type="text/css" />
+    <link href="style/obj.css" rel="stylesheet" type="text/css" />
+    <link href="style/carlist.css" rel="stylesheet" type="text/css" />
+    <link href="style/clickSort.css" rel="stylesheet" type="text/css" />
+    <link href="style/insertArea.css" rel="stylesheet" type="text/css" />
+    <link href="style/modalStyle.css" rel="stylesheet" type="text/css" />
+    <link href="style/logon.css" rel="stylesheet" type="text/css" />
+
+    <!-- React and ReactDOM -->
+    <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+
+    <!-- Babel for JSX support -->
+    <script src="https://unpkg.com/babel-standalone@6.26.0/babel.js"></script>
+
+    <!-- React Router -->
+    <script src="https://unpkg.com/react-router-dom@5.0.0/umd/react-router-dom.min.js"></script>
+</head>
+
+<body>
+    <div id="root"></div>
+
+    <!-- Put JS reusable first (these are called by CGFs or by the page like the dropDown FW). -->
+    <script src="_JS_reusable/dropDownFW.js"></script>
+    <script src="_JS_reusable/MakeObj.js"></script>
+    <script src="_JS_reusable/MakeCarList.js"></script>
+    <script src="_JS_reusable/ajax_alt.js"></script>
+    <script src="_JS_reusable/jsSort.js"></script>
+    <script src="_JS_reusable/sortOrder.js"></script>
+    <script src="_JS_reusable/filterObjList.js"></script>
+    <script src="_JS_reusable/modalFw.js"></script>
+
+    <!-- JS Content Generating functions (these are called by the router). -->
+    <script src="_JS_CGF/CarsComingSoon.js"></script>
+    <script src="_JS_CGF/MakeObj_CGF.js"></script>
+    <script src="_JS_CGF/infoContent.js"></script>
+    <script src="_JS_CGF/MakeCarList_CGF.js"></script>
+
+    <!-- React reusable components -->
+    <script type="text/babel" src="_React_reusable/ConvertEle.js"></script>
+
+    <!-- React Content Generating Components -->
+    <script type="text/babel" src="_React_CGF/Home.js"></script>
+    <script type="text/babel" src="_React_CGF/Blog.js"></script>
+    <script type="text/babel" src="_React_CGF/AjaxUsers.js"></script>
+    <script type="text/babel" src="_React_CGF/AjaxCars.js"></script>
+    <script type="text/babel" src="_React_CGF/Logon.js"></script>
+    <script type="text/babel" src="_React_CGF/Profile.js"></script>
+    <script type="text/babel" src="_React_CGF/Logoff.js"></script>
+    <script type="text/babel" src="_React_CGF/UserInsertOrUpdate.js"></script>
+    <script type="text/babel" src="_React_CGF/CarInsertOrUpdate.js"></script>
+
+    <!-- Main React Script -->
+    <script type="text/babel">
+        "use strict";
+
+        dropDownFW({
+            dropHeaderStyle: "dropHeader",
+            dropContentStyle: "dropContent",
+            showStyle: "show",
+            hideStyle: "hide"
+        });
+
+        const Link = ReactRouterDOM.Link;
+        const Route = ReactRouterDOM.Route;
+
+        const App = () => (
+            <ReactRouterDOM.HashRouter>
+
+                <div id="titleNav">
+                    <div id="title">
+                        Car Marketplace
+                    </div>
+                    <div id="nav">
+                        <div class="dropDown">
+                            <Link to="/home">Home</Link>
+                        </div>
+                        <div class="dropDown">
+                            <div class="dropHeader">Account</div>
+                            <div class="dropContent">
+                                <Link to="/userInsert">Register</Link> <br />
+                                <Link to="/login">Log In</Link> <br />
+                                <Link to="/logout">Log Out</Link> <br />
+                                <Link to="/profile">Profile</Link> <br />
+                            </div>
+                        </div>
+
+                        <div class="dropDown">
+                            <div class="dropHeader">Search</div>
+                            <div class="dropContent">
+                                <Link to="/cars">Cars</Link> <br />
+                                <Link to="/myObj">My Objects</Link> <br />
+                                <Link to="/info">Info</Link><br />
+                                <a target="_blank" href="docs/ahmed_database.pdf">My DB PDF</a><br/>
+                                <Link to="/usersDB">Show Users</Link><br/>
+                                <Link to="/carsDB">Show Cars</Link><br/>
+                            </div>
+                        </div>
+
+                        <div class="dropDown">
+                            <div class="dropHeader">Homeworks</div>
+                            <div class="dropContent">
+                                <Link to="/mycarname">JS CarList Objects</Link><br />
+                            </div>
+                        </div>
+
+
+                        <div class="dropDown">
+                            <Link to="/blog">Blog</Link>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="content">
+                    <Route path="/" exact component={Home} />
+                    <Route path="/home" component={Home} />
+                    <Route path="/cars" component={() => <ConvertEle ele={CarsComingSoon()} />} />
+                    <Route path="/myObj" component={() => <ConvertEle ele={MakeObj_CGF()} />} />
+                    <Route path="/blog" component={Blog} />
+                    <Route path="/info" component={() => <ConvertEle ele={infoContent()} />} />
+                    <Route path="/mycarname" component={() => <ConvertEle ele={MakeCarList_CGF()} />} />
+                    <Route path="/usersDB" component={AjaxUsers} />
+                    <Route path="/carsDB" component={AjaxCars}/>
+                    <Route path="/login" component={Logon} />
+                    <Route path="/profile" component={Profile} />
+                    <Route path="/logout" component={Logoff} />
+                    <Route path="/userInsert" component={UserInsertOrUpdate} />
+                    <Route path="/userUpdate:id" component={UserInsertOrUpdate} />
+                    <Route path="/carInsert" component={CarInsertOrUpdate} />
+                    <Route path="/carUpdate:id" component={CarInsertOrUpdate} />
+                </div>
+
+                <div id="footer">
+                    Toker Ahmed
+                </div>
+            </ReactRouterDOM.HashRouter>
+        );
+
+        ReactDOM.render(<App />, document.getElementById('root'));
+    </script>
+</body>
+
+</html>
